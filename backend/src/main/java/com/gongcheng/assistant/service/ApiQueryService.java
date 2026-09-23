@@ -225,13 +225,19 @@ public class ApiQueryService {
     }
 
     /**
-     * 将解析结果填充到 Member 实体（安全存储：只存参数，不存完整链接）
+     * 将解析结果填充到 Member 实体
+     * 同时存储用户原始输入链接和解析出的游戏参数
+     *
+     * @param member   成员实体
+     * @param inputUrl 用户原始输入的梦游社链接
      */
     public void fillMemberFromApi(Member member, String inputUrl) {
         GameParams params = parseGameParams(inputUrl);
         Map<String, Object> parsed = queryAndParse(params);
 
-        // 存储游戏参数（不存完整链接，防止抓包和数据库泄露）
+        // 存储用户原始输入链接
+        member.setApiUrl(inputUrl);
+        // 存储解析出的游戏参数
         member.setServerId(params.serverId());
         member.setGameUserId(params.userId());
         member.setGameRoleId(params.roleId());

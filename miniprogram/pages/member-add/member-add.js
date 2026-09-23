@@ -1,14 +1,23 @@
-// pages/member-add/member-add.js
+// pages/member-add/member-add.js 添加成员页
 const { memberApi } = require('../../utils/api.js');
 const app = getApp();
 
+/**
+ * 添加成员页面
+ * 输入梦游社链接，调用后端拉取游戏数据并创建成员记录
+ */
 Page({
+  // 页面数据
   data: {
-    apiUrl: '',
-    loading: false,
-    legionName: ''
+    apiUrl: '',        // 输入的梦游社链接
+    loading: false,    // 提交中loading
+    legionName: ''     // 军团名称（展示用）
   },
 
+  /**
+   * 页面加载
+   * 从全局数据获取军团名称
+   */
   onLoad() {
     const legion = app.globalData.legion;
     if (legion) {
@@ -16,14 +25,21 @@ Page({
     }
   },
 
+  /**
+   * 输入梦游社链接
+   */
   onUrlInput(e) {
     this.setData({ apiUrl: e.detail.value });
   },
 
+  /**
+   * 提交添加
+   * 调用后端接口拉取游戏数据并创建成员记录
+   */
   async handleSubmit() {
     const { apiUrl } = this.data;
     if (!apiUrl.trim()) {
-      wx.showToast({ title: '请输入接口链接', icon: 'none' });
+      wx.showToast({ title: '请输入梦游社链接', icon: 'none' });
       return;
     }
 
@@ -57,6 +73,9 @@ Page({
     }
   },
 
+  /**
+   * 从剪贴板粘贴链接
+   */
   pasteFromClipboard() {
     wx.getClipboardData({
       success: (res) => {
@@ -68,6 +87,9 @@ Page({
     });
   },
 
+  /**
+   * 清空输入框
+   */
   clearInput() {
     this.setData({ apiUrl: '' });
   }

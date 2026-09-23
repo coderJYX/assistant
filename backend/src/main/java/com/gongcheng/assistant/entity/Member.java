@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * 军团成员实体类
+ * 对应数据库 member 表，存储成员绑定的游戏角色信息
+ * 角色说明：role 字段 owner=团长, admin=管理员, member=普通成员
+ * 特殊宝石：specialGems 字段用逗号分隔存储筛选出的特殊宝石效果
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -34,29 +40,20 @@ public class Member {
     private String role;
 
     @TableField("api_url")
-    @Schema(description = "数据接口链接（已废弃）")
-    @Deprecated
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @Schema(description = "梦游社链接（用户原始输入）")
     private String apiUrl;
 
     @TableField("server_id")
     @Schema(description = "游戏服务器ID")
-    @com.fasterxml.jackson.annotation.JsonIgnore
     private String serverId;
 
     @TableField("game_user_id")
     @Schema(description = "游戏用户ID")
-    @com.fasterxml.jackson.annotation.JsonIgnore
     private String gameUserId;
 
     @TableField("game_role_id")
     @Schema(description = "游戏角色ID")
-    @com.fasterxml.jackson.annotation.JsonIgnore
     private String gameRoleId;
-
-    @TableField(exist = false)
-    @Schema(description = "展示用链接（H5格式，仅前端展示）")
-    private String displayUrl;
 
     @TableField("role_name")
     @Schema(description = "角色名称")

@@ -66,4 +66,14 @@ public class LegionController {
         legionService.exitLegion(id, userId);
         return ApiResponse.success("退出成功", null);
     }
+
+    @PostMapping("/{id}/update-code")
+    @Operation(summary = "修改军团口令", description = "仅团长可操作，新口令不能与已有口令重复")
+    public ApiResponse<Legion> updateCode(@PathVariable Long id,
+                                          @RequestBody java.util.Map<String, Object> body) {
+        String operatorUserId = (String) body.get("operatorUserId");
+        String newCode = (String) body.get("newCode");
+        Legion legion = legionService.updateCode(id, operatorUserId, newCode);
+        return ApiResponse.success(legion);
+    }
 }

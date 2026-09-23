@@ -46,10 +46,12 @@ public class MemberController {
         return ApiResponse.success(member);
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "成员详情", description = "根据成员ID查询详细信息")
-    public ApiResponse<Member> get(@PathVariable Long id) {
-        Member member = memberService.getMember(id);
+    @PostMapping("/{id}")
+    @Operation(summary = "成员详情", description = "根据成员ID查询详细信息，本人/管理员/团长可查看梦游社链接")
+    public ApiResponse<Member> get(@PathVariable Long id,
+                                   @RequestBody java.util.Map<String, Object> body) {
+        String operatorUserId = (String) body.get("operatorUserId");
+        Member member = memberService.getMember(id, operatorUserId);
         return ApiResponse.success(member);
     }
 

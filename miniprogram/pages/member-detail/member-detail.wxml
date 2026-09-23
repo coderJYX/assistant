@@ -54,7 +54,8 @@
   <view class="url-section">
     <view class="section-title">梦游社链接</view>
     <view class="url-card" wx:if="{{!editing}}">
-      <view class="url-text">{{member.displayUrl || '-'}}</view>
+      <view class="url-text" wx:if="{{member.apiUrl}}">{{member.apiUrl}}</view>
+      <view class="url-text no-perm" wx:else>🔒 仅本人、管理员、团长可查看</view>
       <view class="url-actions">
         <view class="url-btn" bindtap="copyApiUrl">
           <text>📋</text>

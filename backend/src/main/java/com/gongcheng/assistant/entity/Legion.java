@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * 军团实体类
+ * 对应数据库 legion 表，存储军团基本信息
+ * 角色说明：ownerUserId 为军团创建人（团长）
+ */
 @Data
 @Builder
 @NoArgsConstructor

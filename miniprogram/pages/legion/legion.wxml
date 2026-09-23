@@ -25,6 +25,7 @@
         </view>
         <view class="code-actions">
           <text class="code-btn gold" catchtap="copyCode">📋 复制</text>
+          <text class="code-btn edit" wx:if="{{isOwner}}" catchtap="showEditCode">✏️ 修改</text>
         </view>
       </view>
     </view>
@@ -101,6 +102,21 @@
       <view class="transfer-actions">
         <view class="transfer-btn cancel" bindtap="closeTransfer">取消</view>
         <view class="transfer-btn confirm" bindtap="confirmTransfer">确认转移</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 修改口令弹窗 -->
+  <view class="transfer-modal" wx:if="{{showEditCode}}" catchtap="closeEditCode">
+    <view class="transfer-panel" catchtap="noop">
+      <view class="transfer-title">修改军团口令</view>
+      <view class="transfer-desc">新口令仅支持中文、英文、数字，4-32位</view>
+      <view class="code-input-wrap">
+        <input class="code-input" placeholder="请输入新口令" value="{{newCode}}" bindinput="onCodeInput" maxlength="32" />
+      </view>
+      <view class="transfer-actions">
+        <view class="transfer-btn cancel" bindtap="closeEditCode">取消</view>
+        <view class="transfer-btn confirm" bindtap="confirmEditCode">确认修改</view>
       </view>
     </view>
   </view>

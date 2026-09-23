@@ -1,15 +1,25 @@
-// pages/bind-role/bind-role.js
+// pages/bind-role/bind-role.js 绑定角色页
 const { memberApi } = require('../../utils/api.js');
 const app = getApp();
 
+/**
+ * 绑定角色页面
+ * 用户加入军团后，需输入梦游社链接绑定游戏角色
+ * 绑定成功后才能进入军团主页
+ */
 Page({
+  // 页面数据
   data: {
-    apiUrl: '',
-    loading: false,
-    legionName: '',
-    errorMsg: ''
+    apiUrl: '',        // 输入的梦游社链接
+    loading: false,    // 提交中loading
+    legionName: '',    // 军团名称（展示用）
+    errorMsg: ''       // 错误提示
   },
 
+  /**
+   * 页面加载
+   * 检查是否有军团信息，没有则跳转首页
+   */
   onLoad() {
     const legion = app.globalData.legion;
     if (!legion || !legion.id) {
@@ -19,10 +29,16 @@ Page({
     this.setData({ legionName: legion.name });
   },
 
+  /**
+   * 输入梦游社链接
+   */
   onUrlInput(e) {
     this.setData({ apiUrl: e.detail.value, errorMsg: '' });
   },
 
+  /**
+   * 从剪贴板粘贴链接
+   */
   pasteFromClipboard() {
     wx.getClipboardData({
       success: (res) => {
@@ -34,14 +50,22 @@ Page({
     });
   },
 
+  /**
+   * 清空输入框
+   */
   clearInput() {
     this.setData({ apiUrl: '', errorMsg: '' });
   },
 
+  /**
+   * 提交绑定
+   * 调用后端接口拉取游戏数据并创建成员记录
+   * 绑定成功后跳转军团主页
+   */
   async handleSubmit() {
     const { apiUrl } = this.data;
     if (!apiUrl.trim()) {
-      this.setData({ errorMsg: '请输入角色数据接口链接' });
+      this.setData({ errorMsg: '请输入梦游社链接' });
       return;
     }
 
