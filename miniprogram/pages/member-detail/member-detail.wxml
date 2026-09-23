@@ -1,0 +1,107 @@
+<!--pages/member-detail/member-detail.wxml-->
+<view class="page-detail" wx:if="{{!loading}}">
+  <!-- 角色头部 -->
+  <view class="role-header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="role-avatar">{{member.roleName.charAt(0)}}</view>
+      <view class="role-name-row">
+        <text class="role-name">{{member.roleName || '未知角色'}}</text>
+        <text class="role-tag owner" wx:if="{{member.role === 'owner'}}">团长</text>
+        <text class="role-tag admin" wx:if="{{member.role === 'admin'}}">管理员</text>
+      </view>
+      <view class="role-progress">
+        <text class="progress-icon">📍</text>
+        <text>{{member.progress || '-'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 核心属性 -->
+  <view class="stats-section">
+    <view class="section-title">核心属性</view>
+    <view class="stats-grid">
+      <view class="stat-card atk">
+        <view class="stat-icon">⚔️</view>
+        <view class="stat-value">{{member.atk}}</view>
+        <view class="stat-label">攻击力</view>
+      </view>
+      <view class="stat-card gun">
+        <view class="stat-icon">🔫</view>
+        <view class="stat-value">{{member.gunDmgBonus || '-'}}</view>
+        <view class="stat-label">枪械伤害加成</view>
+      </view>
+      <view class="stat-card crit">
+        <view class="stat-icon">💥</view>
+        <view class="stat-value">{{member.critDmgBonus || '-'}}</view>
+        <view class="stat-label">暴击伤害加成</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 特殊宝石 -->
+  <view class="gems-section" wx:if="{{member.specialGemList && member.specialGemList.length > 0}}">
+    <view class="section-title">✨ 特殊宝石</view>
+    <view class="gem-list">
+      <view class="gem-item" wx:for="{{member.specialGemList}}" wx:key="*this">
+        <text class="gem-dot">◆</text>
+        <text class="gem-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 接口链接 -->
+  <view class="url-section">
+    <view class="section-title">梦游社链接</view>
+    <view class="url-card" wx:if="{{!editing}}">
+      <view class="url-text">{{member.displayUrl || '-'}}</view>
+      <view class="url-actions">
+        <view class="url-btn" bindtap="copyApiUrl">
+          <text>📋</text>
+          <text>复制</text>
+        </view>
+        <view class="url-btn edit" wx:if="{{member.userId === currentUserId || isOwner || isAdmin}}" bindtap="startEdit">
+          <text>✏️</text>
+          <text>修改</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 编辑模式 -->
+    <view class="url-edit" wx:if="{{editing}}">
+      <view class="input-wrap">
+        <input class="input-field" value="{{editUrl}}"
+               bindinput="onEditUrlInput" placeholder="请输入新的接口链接" />
+      </view>
+      <view class="edit-actions">
+        <view class="edit-btn cancel" bindtap="cancelEdit">取消</view>
+        <view class="edit-btn save" bindtap="saveEdit">
+          {{saving ? '保存中...' : '保存'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <view class="action-btn refresh" wx:if="{{member.userId === currentUserId || isOwner || isAdmin}}" bindtap="refreshData">
+      <text class="action-icon">🔄</text>
+      <text class="action-text">同步数据</text>
+    </view>
+    <view class="action-btn delete" wx:if="{{isOwner && member.role !== 'owner'}}" bindtap="deleteMember">
+      <text class="action-icon">🗑️</text>
+      <text class="action-text">删除成员</text>
+    </view>
+  </view>
+
+  <!-- 更新时间 -->
+  <view class="update-time">
+    <text>最后更新：{{member.updatedAt || member.createdAt}}</text>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading-page" wx:if="{{loading}}">
+  <view class="loading-spinner"></view>
+  <text class="loading-text">加载中...</text>
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "成员管理",
+  "navigationBarBackgroundColor": "#0d1117",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#0d1117",
+  "enablePullDownRefresh": true
+}

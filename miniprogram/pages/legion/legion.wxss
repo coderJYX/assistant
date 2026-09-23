@@ -1,0 +1,758 @@
+/* pages/legion/legion.wxss */
+.page-legion {
+  min-height: 100vh;
+  background: #0d1117;
+}
+
+/* ===== Header 卡片式 ===== */
+.legion-header {
+  position: relative;
+  padding: 30rpx 24rpx 0;
+}
+
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  background: linear-gradient(180deg,
+    rgba(240, 136, 62, 0.22) 0%,
+    rgba(13, 17, 23, 0) 100%);
+  pointer-events: none;
+}
+
+.legion-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  border-radius: 24rpx;
+  padding: 28rpx;
+  backdrop-filter: blur(20rpx);
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.3);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+}
+
+.legion-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-right: 22rpx;
+  box-shadow: 0 6rpx 20rpx rgba(240, 136, 62, 0.35);
+  flex-shrink: 0;
+}
+
+.legion-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.legion-name {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legion-badges {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 20rpx;
+  padding: 5rpx 14rpx;
+  border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(230, 237, 243, 0.7);
+}
+
+.badge.crown {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  border: 1rpx solid rgba(255, 215, 0, 0.35);
+}
+
+.badge.shield {
+  background: rgba(88, 166, 255, 0.12);
+  color: #58a6ff;
+  border: 1rpx solid rgba(88, 166, 255, 0.3);
+}
+
+.exit-icon {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: rgba(230, 237, 243, 0.5);
+  flex-shrink: 0;
+}
+
+/* 口令行 */
+.card-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24rpx;
+  padding: 20rpx 24rpx;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 16rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.06);
+}
+
+.code-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.code-label {
+  font-size: 20rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+.code-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #e6edf3;
+  letter-spacing: 4rpx;
+}
+
+.code-actions {
+  display: flex;
+  gap: 12rpx;
+}
+
+.code-btn {
+  font-size: 28rpx;
+  padding: 8rpx 16rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12rpx;
+}
+
+.code-btn.gold {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+/* 转让团长 */
+.card-transfer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  padding: 18rpx 24rpx;
+  background: rgba(255, 215, 0, 0.06);
+  border: 1rpx solid rgba(255, 215, 0, 0.2);
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  color: #ffd700;
+}
+
+.card-transfer .arrow {
+  font-size: 36rpx;
+  color: rgba(255, 215, 0, 0.5);
+}
+
+.legion-subtitle {
+  font-size: 18rpx;
+  color: rgba(240, 136, 62, 0.7);
+  letter-spacing: 4rpx;
+  margin-bottom: 4rpx;
+}
+
+/* ===== 军团日常 ===== */
+.daily-section {
+  margin: 30rpx 24rpx 0;
+}
+
+.section-title {
+  font-size: 26rpx;
+  color: rgba(230, 237, 243, 0.45);
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+
+.daily-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50rpx 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1rpx dashed rgba(255, 255, 255, 0.1);
+  border-radius: 20rpx;
+}
+
+.daily-icon {
+  font-size: 60rpx;
+  margin-bottom: 16rpx;
+  opacity: 0.5;
+}
+
+.daily-text {
+  font-size: 26rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+/* ===== 分类管理菜单 ===== */
+.menu-section {
+  margin: 30rpx 24rpx 40rpx;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+  border-radius: 18rpx;
+  padding: 26rpx 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.menu-item.disabled {
+  opacity: 0.6;
+}
+
+.menu-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+  background: rgba(240, 136, 62, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 22rpx;
+  flex-shrink: 0;
+}
+
+.menu-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6rpx;
+}
+
+.menu-desc {
+  display: block;
+  font-size: 22rpx;
+  color: rgba(230, 237, 243, 0.45);
+}
+
+.menu-arrow {
+  font-size: 40rpx;
+  color: rgba(255, 255, 255, 0.25);
+  margin-left: 12rpx;
+}
+
+/* ===== Content ===== */
+.content-area {
+  padding: 0 30rpx 40rpx;
+}
+
+/* ===== Action Row ===== */
+.action-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 30rpx;
+}
+
+.action-row .action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  border-radius: 16rpx;
+  padding: 26rpx 0;
+  font-size: 28rpx;
+  font-weight: 700;
+  border: none;
+  margin: 0;
+}
+
+.action-row .action-btn::after {
+  border: none;
+}
+
+.action-row .action-btn.add {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(240, 136, 62, 0.3);
+}
+
+.action-row .action-btn.invite {
+  background: linear-gradient(135deg, #3fb950 0%, #2ea043 100%);
+  color: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(63, 185, 80, 0.25);
+}
+
+.action-row .action-icon {
+  font-size: 32rpx;
+}
+
+/* ===== List Header ===== */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.list-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+.list-count {
+  font-size: 24rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+/* ===== Member Card ===== */
+.member-card {
+  background: linear-gradient(145deg, #161b22 0%, #1c2128 100%);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.05);
+}
+
+.member-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.member-avatar {
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #58a6ff 0%, #388bfd 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 6rpx;
+}
+
+.member-name-row .member-name {
+  margin-bottom: 0;
+}
+
+.role-tag {
+  font-size: 18rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.role-tag.owner {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+}
+
+.role-tag.admin {
+  background: rgba(88, 166, 255, 0.15);
+  color: #58a6ff;
+  border: 1rpx solid rgba(88, 166, 255, 0.3);
+}
+
+.member-progress {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 22rpx;
+  color: rgba(230, 237, 243, 0.45);
+}
+
+.progress-icon {
+  font-size: 22rpx;
+}
+
+.member-atk {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.atk-value {
+  font-size: 34rpx;
+  font-weight: 800;
+  color: #f0883e;
+}
+
+.atk-label {
+  font-size: 20rpx;
+  color: rgba(230, 237, 243, 0.35);
+}
+
+/* ===== Stats ===== */
+.member-stats {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.stat-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12rpx;
+  padding: 16rpx;
+  text-align: center;
+}
+
+.stat-box-label {
+  display: block;
+  font-size: 20rpx;
+  color: rgba(230, 237, 243, 0.4);
+  margin-bottom: 6rpx;
+}
+
+.stat-box-value {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.stat-box-value.gun {
+  color: #58a6ff;
+}
+
+.stat-box-value.crit {
+  color: #bc8cff;
+}
+
+/* ===== Actions ===== */
+.member-actions {
+  display: flex;
+  gap: 12rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.05);
+  padding-top: 16rpx;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  padding: 14rpx 0;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.action-btn.refresh {
+  background: rgba(63, 185, 80, 0.1);
+  color: #3fb950;
+}
+
+.action-btn.detail {
+  background: rgba(88, 166, 255, 0.1);
+  color: #58a6ff;
+}
+
+.action-btn.delete {
+  background: rgba(248, 81, 73, 0.1);
+  color: #f85149;
+}
+
+.action-btn.admin-set {
+  background: rgba(188, 140, 255, 0.1);
+  color: #bc8cff;
+}
+
+/* ===== Empty / Loading ===== */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 0;
+}
+
+.empty-icon {
+  font-size: 100rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  color: rgba(230, 237, 243, 0.6);
+  margin-bottom: 10rpx;
+  font-weight: 600;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: rgba(230, 237, 243, 0.35);
+}
+
+.loading-state {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.loading-spinner {
+  width: 50rpx;
+  height: 50rpx;
+  border: 4rpx solid rgba(240, 136, 62, 0.2);
+  border-top-color: #f0883e;
+  border-radius: 50%;
+  margin: 0 auto 20rpx;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+/* ===== Transfer Modal ===== */
+.transfer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.transfer-panel {
+  width: 100%;
+  background: #161b22;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 30rpx;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.transfer-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 8rpx;
+}
+
+.transfer-desc {
+  font-size: 24rpx;
+  color: rgba(230, 237, 243, 0.4);
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.transfer-list {
+  flex: 1;
+  max-height: 500rpx;
+}
+
+.transfer-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  border-radius: 14rpx;
+  margin-bottom: 12rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.transfer-item.selected {
+  background: rgba(240, 136, 62, 0.1);
+  border-color: rgba(240, 136, 62, 0.4);
+}
+
+.transfer-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #58a6ff 0%, #388bfd 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 20rpx;
+}
+
+.transfer-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.transfer-name {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: 600;
+}
+
+.transfer-role {
+  font-size: 18rpx;
+  color: #58a6ff;
+  background: rgba(88, 166, 255, 0.12);
+  padding: 4rpx 10rpx;
+  border-radius: 6rpx;
+}
+
+.transfer-check {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: #f0883e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.transfer-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 30rpx;
+}
+
+.transfer-actions .transfer-btn {
+  flex: 1;
+  text-align: center;
+  padding: 26rpx 0;
+  border-radius: 14rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.transfer-actions .transfer-btn.cancel {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(230, 237, 243, 0.6);
+}
+
+.transfer-actions .transfer-btn.confirm {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+}
+
+/* ===== 特殊宝石标签 ===== */
+.special-gems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 16rpx;
+}
+
+.gem-tag {
+  font-size: 22rpx;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1rpx solid rgba(255, 215, 0, 0.35);
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+  line-height: 1.4;
+}
+
+/* ===== 底部操作区 ===== */
+.bottom-actions {
+  margin: 40rpx 24rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.sync-btn {
+  width: auto;
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 24rpx 0;
+  border-radius: 16rpx;
+  border: none;
+  text-align: center;
+  box-shadow: 0 8rpx 24rpx rgba(240, 136, 62, 0.3);
+}
+
+.sync-btn::after {
+  border: none;
+}
+
+.sync-btn[disabled] {
+  opacity: 0.6;
+}
+
+.invite-fab {
+  width: auto;
+  background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 24rpx 0;
+  border-radius: 16rpx;
+  border: none;
+  text-align: center;
+  box-shadow: 0 8rpx 24rpx rgba(88, 166, 255, 0.3);
+}
+
+.invite-fab::after {
+  border: none;
+}

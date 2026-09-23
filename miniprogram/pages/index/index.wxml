@@ -1,0 +1,132 @@
+<!--pages/index/index.wxml-->
+<view class="page-index">
+  <!-- 顶部装饰 -->
+  <view class="top-bg"></view>
+
+  <!-- 查询账号状态中 -->
+  <view class="checking-page" wx:if="{{checking}}">
+    <view class="hero">
+      <view class="hero-badge">
+        <text class="hero-icon">⚔</text>
+      </view>
+      <view class="hero-title">攻城助手</view>
+    </view>
+    <view class="checking-box">
+      <view class="checking-spinner"></view>
+      <text class="checking-text">正在确认军团信息...</text>
+    </view>
+  </view>
+
+  <view class="content" wx:if="{{!checking}}">
+    <!-- Logo 区域 -->
+    <view class="hero">
+      <view class="hero-badge">
+        <text class="hero-icon">⚔</text>
+      </view>
+      <view class="hero-title">攻城助手</view>
+    </view>
+
+    <!-- 邀请模式提示 -->
+    <view class="invite-banner" wx:if="{{inviteMode}}">
+      <text class="invite-icon">✉️</text>
+      <view class="invite-text">
+        <view class="invite-title">您收到了军团邀请</view>
+        <view class="invite-desc">填写链接即可加入军团</view>
+      </view>
+    </view>
+
+    <!-- Tab 切换（非邀请模式显示） -->
+    <view class="tab-bar" wx:if="{{!inviteMode}}">
+      <view class="tab-item {{activeTab === 'create' ? 'active' : ''}}"
+            data-tab="create" bindtap="switchTab">
+        <text class="tab-icon">🏰</text>
+        <text>创建军团</text>
+      </view>
+      <view class="tab-item {{activeTab === 'join' ? 'active' : ''}}"
+            data-tab="join" bindtap="switchTab">
+        <text class="tab-icon">🔑</text>
+        <text>加入军团</text>
+      </view>
+    </view>
+
+    <!-- 创建军团 -->
+    <view class="form-card" wx:if="{{activeTab === 'create' && !inviteMode}}">
+      <view class="form-title">创建新军团</view>
+      <view class="form-desc">设置军团名称和口令，邀请战友加入</view>
+
+      <view class="form-group">
+        <text class="label">军团名称</text>
+        <view class="input-wrap {{nameError ? 'input-error' : ''}}">
+          <text class="input-icon">📝</text>
+          <input class="input-field" placeholder="请输入军团名称"
+                 value="{{createName}}" bindinput="onNameInput" maxlength="50" />
+        </view>
+        <text class="error-text" wx:if="{{nameError}}">{{nameError}}</text>
+      </view>
+
+      <view class="form-group">
+        <text class="label">军团口令</text>
+        <view class="input-wrap {{codeError ? 'input-error' : ''}}">
+          <text class="input-icon">🔐</text>
+          <input class="input-field" placeholder="设置4-32位口令，仅限中英文数字"
+                 value="{{createCode}}" bindinput="onCreateCodeInput" maxlength="32" />
+        </view>
+        <text class="error-text" wx:if="{{codeError}}">{{codeError}}</text>
+      </view>
+
+      <button class="btn-primary submit-btn" bindtap="handleCreate"
+              loading="{{loading}}" disabled="{{loading}}">
+        {{loading ? '创建中...' : '立即创建'}}
+      </button>
+    </view>
+
+    <!-- 加入军团 -->
+    <view class="form-card" wx:if="{{activeTab === 'join' || inviteMode}}">
+      <view class="form-title">{{inviteMode ? '加入军团' : '加入已有军团'}}</view>
+      <view class="form-desc">{{inviteMode ? '口令已自动填充' : '输入军团口令，快速加入战友队伍'}}</view>
+
+      <view class="form-group">
+        <text class="label">军团口令</text>
+        <view class="input-wrap {{joinCodeError ? 'input-error' : ''}}">
+          <text class="input-icon">🔑</text>
+          <input class="input-field" placeholder="请输入军团口令"
+                 value="{{joinCode}}" bindinput="onJoinCodeInput" maxlength="32"
+                 disabled="{{inviteMode}}" />
+        </view>
+        <text class="error-text" wx:if="{{joinCodeError}}">{{joinCodeError}}</text>
+      </view>
+
+      <!-- 邀请模式：强制填写接口链接 -->
+      <view class="form-group" wx:if="{{inviteMode}}">
+        <text class="label">梦游社链接 <text class="required">*</text></text>
+        <view class="input-wrap {{inviteUrlError ? 'input-error' : ''}}">
+          <text class="input-icon">🔗</text>
+          <input class="input-field" placeholder="请输入或粘贴梦游社链接"
+                 value="{{inviteApiUrl}}" bindinput="onInviteUrlInput" />
+        </view>
+        <text class="error-text" wx:if="{{inviteUrlError}}">{{inviteUrlError}}</text>
+        <view class="input-actions">
+          <view class="paste-btn" bindtap="pasteInviteUrl">
+            <text>📋</text>
+            <text>粘贴链接</text>
+          </view>
+        </view>
+      </view>
+
+      <button class="btn-primary submit-btn" bindtap="handleJoin"
+              loading="{{loading}}" disabled="{{loading}}">
+        {{loading ? '加入中...' : '立即加入'}}
+      </button>
+
+      <view class="tip-box" wx:if="{{!inviteMode}}">
+        <text class="tip-icon">💡</text>
+        <text class="tip-text">向军团管理员获取口令后加入</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部装饰 -->
+  <view class="bottom-deco">
+    <text class="deco-text">— 攻城略地 · 战无不胜 —</text>
+  </view>
+</view>

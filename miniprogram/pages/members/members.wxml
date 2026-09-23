@@ -1,0 +1,124 @@
+<!--pages/members/members.wxml-->
+<view class="page-members">
+  <view class="page-header">
+    <view class="header-title">成员管理</view>
+    <view class="header-desc">共 {{members.length}} 人</view>
+  </view>
+
+  <!-- 成员列表 -->
+  <view class="member-list" wx:if="{{members.length > 0}}">
+    <view class="member-card" wx:for="{{members}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="goDetail">
+      <view class="member-main">
+        <view class="member-avatar">{{item.roleName.charAt(0)}}</view>
+        <view class="member-info">
+          <view class="member-name-row">
+            <text class="member-name">{{item.roleName || '未知角色'}}</text>
+            <text class="role-tag owner" wx:if="{{item.role === 'owner'}}">团长</text>
+            <text class="role-tag admin" wx:if="{{item.role === 'admin'}}">管理员</text>
+          </view>
+          <view class="member-progress">
+            <text class="progress-icon">📍</text>
+            <text>{{item.progress || '-'}}</text>
+          </view>
+        </view>
+        <view class="member-atk">
+          <view class="atk-value">{{item.atk}}</view>
+          <view class="atk-label">攻击力</view>
+        </view>
+      </view>
+
+      <view class="member-stats">
+        <view class="stat-box">
+          <text class="stat-box-label">枪械伤害</text>
+          <text class="stat-box-value gun">{{item.gunDmgBonus || '-'}}</text>
+        </view>
+        <view class="stat-box">
+          <text class="stat-box-label">暴击伤害</text>
+          <text class="stat-box-value crit">{{item.critDmgBonus || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="special-gems" wx:if="{{item.specialGemList && item.specialGemList.length > 0}}">
+        <view class="gem-tag" wx:for="{{item.specialGemList}}" wx:for-item="gem" wx:key="*this">
+          ✨ {{gem}}
+        </view>
+      </view>
+
+      <view class="member-actions">
+        <view class="action-btn refresh" wx:if="{{item.userId === currentUserId || isOwner || isAdmin}}"
+              catchtap="syncMember" data-id="{{item.id}}">
+          <text>🔄</text>
+          <text>同步</text>
+        </view>
+        <view class="action-btn detail" catchtap="goDetail" data-id="{{item.id}}">
+          <text>📋</text>
+          <text>详情</text>
+        </view>
+        <view class="action-btn admin-set" wx:if="{{isOwner && item.role !== 'owner'}}"
+              catchtap="setAdmin" data-id="{{item.id}}" data-role="{{item.role}}">
+          <text>{{item.role === 'admin' ? '⬇️' : '⬆️'}}</text>
+          <text>{{item.role === 'admin' ? '取消管理' : '设为管理'}}</text>
+        </view>
+        <view class="action-btn delete" wx:if="{{isOwner && item.role !== 'owner'}}"
+              catchtap="deleteMember" data-id="{{item.id}}" data-name="{{item.roleName}}">
+          <text>🗑️</text>
+          <text>删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{members.length === 0 && !loading}}">
+    <view class="empty-icon">🎮</view>
+    <view class="empty-title">暂无成员</view>
+    <view class="empty-desc">分享军团口令邀请好友加入</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 底部操作区 -->
+  <view class="bottom-actions">
+    <view class="action-row">
+      <view class="action-btn2 transfer" wx:if="{{isOwner}}" bindtap="openTransfer">
+        👑 转让团长
+      </view>
+      <view class="action-btn2 sync" wx:if="{{isOwner || isAdmin}}" bindtap="syncAll">
+        🔄 {{syncing ? '同步中...' : '一键同步'}}
+      </view>
+      <button class="action-btn2 invite" open-type="share">
+        ✉️ 邀请好友
+      </button>
+    </view>
+  </view>
+
+  <!-- 转移团长弹窗 -->
+  <view class="transfer-modal" wx:if="{{showTransfer}}" catchtap="closeTransfer">
+    <view class="transfer-panel" catchtap="noop">
+      <view class="transfer-title">选择新团长</view>
+      <view class="transfer-desc">团长转移后，您将变为普通成员</view>
+      <scroll-view class="transfer-list" scroll-y>
+        <view class="transfer-item {{transferTargetId === item.id ? 'selected' : ''}}"
+              wx:for="{{members}}" wx:key="id"
+              wx:if="{{item.userId !== currentUserId}}"
+              data-id="{{item.id}}" bindtap="selectTransferTarget">
+          <view class="transfer-avatar">{{item.roleName.charAt(0)}}</view>
+          <view class="transfer-info">
+            <text class="transfer-name">{{item.roleName}}</text>
+            <text class="transfer-role" wx:if="{{item.role === 'admin'}}">管理员</text>
+          </view>
+          <view class="transfer-check" wx:if="{{transferTargetId === item.id}}">✓</view>
+        </view>
+      </scroll-view>
+      <view class="transfer-actions">
+        <view class="transfer-btn cancel" bindtap="closeTransfer">取消</view>
+        <view class="transfer-btn confirm" bindtap="confirmTransfer">确认转移</view>
+      </view>
+    </view>
+  </view>
+</view>

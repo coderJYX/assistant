@@ -1,0 +1,57 @@
+<!--pages/bind-role/bind-role.wxml-->
+<view class="page-bind">
+  <view class="top-bg"></view>
+
+  <view class="content">
+    <!-- Logo -->
+    <view class="hero">
+      <view class="hero-badge">
+        <text class="hero-icon">⚔</text>
+      </view>
+      <view class="hero-title">绑定角色</view>
+      <view class="hero-subtitle">{{legionName}}</view>
+    </view>
+
+    <!-- 说明卡片 -->
+    <view class="info-card">
+      <view class="info-icon">📋</view>
+      <view class="info-text">
+        <view class="info-title">首次进入需绑定角色</view>
+        <view class="info-desc">输入您的梦游社链接，系统将自动拉取并加入军团</view>
+      </view>
+    </view>
+
+    <!-- 链接输入 -->
+    <view class="form-card">
+      <view class="form-group">
+        <text class="label">梦游社链接 <text class="required">*</text></text>
+        <view class="input-wrap {{errorMsg ? 'input-error' : ''}}">
+          <text class="input-icon">🔗</text>
+          <input class="input-field" placeholder="请输入或粘贴梦游社链接"
+                 value="{{apiUrl}}" bindinput="onUrlInput" />
+          <view class="clear-btn" wx:if="{{apiUrl}}" bindtap="clearInput">
+            <text>✕</text>
+          </view>
+        </view>
+        <text class="error-text" wx:if="{{errorMsg}}">{{errorMsg}}</text>
+        <view class="input-actions">
+          <view class="paste-btn" bindtap="pasteFromClipboard">
+            <text>📋</text>
+            <text>粘贴链接</text>
+          </view>
+        </view>
+      </view>
+
+      <button class="btn-primary submit-btn" bindtap="handleSubmit"
+              loading="{{loading}}" disabled="{{loading}}">
+        {{loading ? '拉取中...' : '确认绑定'}}
+      </button>
+
+      <view class="tip-text">绑定角色后即可查看军团信息</view>
+    </view>
+  </view>
+
+  <view class="bottom-deco">
+    <text class="deco-text">— 绑定角色 · 征战四方 —</text>
+  </view>
+</view>

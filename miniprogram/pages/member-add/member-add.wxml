@@ -1,0 +1,61 @@
+<!--pages/member-add/member-add.wxml-->
+<view class="page-add">
+  <!-- 顶部提示 -->
+  <view class="top-info">
+    <view class="info-icon">📡</view>
+    <view class="info-content">
+      <view class="info-title">添加军团成员</view>
+      <view class="info-desc">当前军团：{{legionName}}</view>
+    </view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="form-card">
+    <view class="form-group">
+      <text class="label">角色数据接口链接</text>
+      <view class="input-wrap">
+        <text class="input-icon">🔗</text>
+        <input class="input-field" placeholder="请输入或粘贴接口链接"
+               value="{{apiUrl}}" bindinput="onUrlInput"
+               confirm-type="done" />
+        <text class="clear-btn" wx:if="{{apiUrl}}" bindtap="clearInput">✕</text>
+      </view>
+      <view class="input-actions">
+        <view class="paste-btn" bindtap="pasteFromClipboard">
+          <text>📋</text>
+          <text>粘贴链接</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 说明 -->
+    <view class="notice">
+      <view class="notice-title">📌 使用说明</view>
+      <view class="notice-list">
+        <view class="notice-item">
+          <text class="notice-dot">1</text>
+          <text>链接需返回包含 t5_data 的 JSON 数据</text>
+        </view>
+        <view class="notice-item">
+          <text class="notice-dot">2</text>
+          <text>自动提取：角色名、进度、攻击力、枪械/暴击伤害加成</text>
+        </view>
+        <view class="notice-item">
+          <text class="notice-dot">3</text>
+          <text>同一军团内接口链接不可重复</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="btn-primary submit-btn" bindtap="handleSubmit"
+            loading="{{loading}}" disabled="{{loading}}">
+      {{loading ? '查询中...' : '确认添加'}}
+    </button>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="bottom-tip">
+    <text>接口数据由后端代理请求，无需担心跨域问题</text>
+  </view>
+</view>

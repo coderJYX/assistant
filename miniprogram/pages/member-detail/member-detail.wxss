@@ -1,0 +1,350 @@
+/* pages/member-detail/member-detail.wxss */
+.page-detail {
+  min-height: 100vh;
+  background: #0d1117;
+  padding-bottom: 60rpx;
+}
+
+/* ===== Role Header ===== */
+.role-header {
+  position: relative;
+  padding: 60rpx 0 50rpx;
+  text-align: center;
+}
+
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 280rpx;
+  background: linear-gradient(180deg, rgba(88, 166, 255, 0.15) 0%, transparent 100%);
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.role-avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #58a6ff 0%, #388bfd 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 auto 24rpx;
+  box-shadow: 0 12rpx 40rpx rgba(88, 166, 255, 0.3);
+}
+
+.role-name {
+  font-size: 42rpx;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10rpx;
+}
+
+.role-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14rpx;
+  margin-bottom: 10rpx;
+}
+
+.role-name-row .role-name {
+  margin-bottom: 0;
+}
+
+.role-tag {
+  font-size: 20rpx;
+  padding: 6rpx 14rpx;
+  border-radius: 8rpx;
+  font-weight: 600;
+}
+
+.role-tag.owner {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+}
+
+.role-tag.admin {
+  background: rgba(88, 166, 255, 0.15);
+  color: #58a6ff;
+  border: 1rpx solid rgba(88, 166, 255, 0.3);
+}
+
+.role-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  font-size: 26rpx;
+  color: rgba(230, 237, 243, 0.5);
+}
+
+.progress-icon {
+  font-size: 26rpx;
+}
+
+/* ===== Section ===== */
+.stats-section,
+.url-section,
+.gems-section {
+  padding: 0 30rpx;
+  margin-bottom: 48rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 28rpx;
+  padding-left: 4rpx;
+}
+
+/* ===== Stats Grid ===== */
+.stats-grid {
+  display: flex;
+  gap: 20rpx;
+}
+
+.stat-card {
+  flex: 1;
+  background: linear-gradient(145deg, #161b22 0%, #1c2128 100%);
+  border-radius: 18rpx;
+  padding: 36rpx 20rpx;
+  text-align: center;
+  border: 1rpx solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-icon {
+  font-size: 44rpx;
+  margin-bottom: 16rpx;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: 800;
+  margin-bottom: 10rpx;
+  word-break: break-all;
+}
+
+.stat-card.atk .stat-value {
+  color: #f0883e;
+}
+
+.stat-card.gun .stat-value {
+  color: #58a6ff;
+}
+
+.stat-card.crit .stat-value {
+  color: #bc8cff;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+/* ===== URL Card ===== */
+.url-card {
+  background: linear-gradient(145deg, #161b22 0%, #1c2128 100%);
+  border-radius: 16rpx;
+  padding: 28rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.05);
+}
+
+.url-text {
+  font-size: 24rpx;
+  color: #58a6ff;
+  word-break: break-all;
+  line-height: 1.8;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10rpx;
+}
+
+.url-actions {
+  display: flex;
+  gap: 12rpx;
+}
+
+.url-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  padding: 16rpx 0;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  background: rgba(88, 166, 255, 0.1);
+  color: #58a6ff;
+}
+
+.url-btn.edit {
+  background: rgba(240, 136, 62, 0.1);
+  color: #f0883e;
+}
+
+/* ===== URL Edit ===== */
+.url-edit {
+  background: linear-gradient(145deg, #161b22 0%, #1c2128 100%);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid rgba(240, 136, 62, 0.2);
+}
+
+.input-wrap {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.input-field {
+  height: 84rpx;
+  color: #e6edf3;
+  font-size: 24rpx;
+}
+
+.input-field::placeholder {
+  color: rgba(230, 237, 243, 0.25);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 12rpx;
+}
+
+.edit-btn {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.edit-btn.cancel {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(230, 237, 243, 0.6);
+}
+
+.edit-btn.save {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+}
+
+/* ===== Action Section ===== */
+.action-section {
+  display: flex;
+  gap: 16rpx;
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 28rpx 0;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.action-btn.refresh {
+  background: linear-gradient(135deg, #3fb950 0%, #2ea043 100%);
+  color: #fff;
+  box-shadow: 0 6rpx 20rpx rgba(63, 185, 80, 0.25);
+}
+
+.action-btn.delete {
+  background: rgba(248, 81, 73, 0.12);
+  color: #f85149;
+  border: 1rpx solid rgba(248, 81, 73, 0.2);
+}
+
+.action-icon {
+  font-size: 32rpx;
+}
+
+/* ===== Update Time ===== */
+.update-time {
+  text-align: center;
+  font-size: 22rpx;
+  color: rgba(230, 237, 243, 0.25);
+  padding: 20rpx 0;
+}
+
+/* ===== Loading ===== */
+.loading-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0d1117;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 5rpx solid rgba(240, 136, 62, 0.2);
+  border-top-color: #f0883e;
+  border-radius: 50%;
+  margin-bottom: 24rpx;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+/* ===== 特殊宝石 ===== */
+.gems-section {
+  margin: 0 30rpx 48rpx;
+}
+
+.gem-list {
+  background: rgba(255, 215, 0, 0.06);
+  border: 1rpx solid rgba(255, 215, 0, 0.25);
+  border-radius: 16rpx;
+  padding: 24rpx 28rpx;
+}
+
+.gem-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 14rpx 0;
+}
+
+.gem-dot {
+  color: #ffd700;
+  font-size: 24rpx;
+  margin-right: 14rpx;
+  line-height: 1.6;
+}
+
+.gem-text {
+  color: #ffd700;
+  font-size: 26rpx;
+  line-height: 1.6;
+  flex: 1;
+}

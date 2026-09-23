@@ -1,0 +1,377 @@
+/* pages/members/members.wxss */
+.page-members {
+  min-height: 100vh;
+  background: #0d1117;
+  padding-bottom: 40rpx;
+}
+
+.page-header {
+  padding: 40rpx 30rpx 20rpx;
+}
+
+.header-title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8rpx;
+}
+
+.header-desc {
+  font-size: 24rpx;
+  color: rgba(230, 237, 243, 0.5);
+}
+
+/* 成员卡片 */
+.member-card {
+  margin: 0 24rpx 20rpx;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+  border-radius: 20rpx;
+  padding: 24rpx;
+}
+
+.member-main {
+  display: flex;
+  align-items: center;
+}
+
+.member-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.member-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 12rpx;
+}
+
+.role-tag {
+  font-size: 20rpx;
+  padding: 3rpx 12rpx;
+  border-radius: 12rpx;
+  margin-right: 8rpx;
+}
+
+.role-tag.owner {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+}
+
+.role-tag.admin {
+  background: rgba(88, 166, 255, 0.15);
+  color: #58a6ff;
+}
+
+.member-progress {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  color: rgba(230, 237, 243, 0.5);
+}
+
+.member-atk {
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.atk-value {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #f0883e;
+}
+
+.atk-label {
+  font-size: 20rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+.member-stats {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.stat-box {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12rpx;
+  padding: 14rpx 18rpx;
+}
+
+.stat-box-label {
+  display: block;
+  font-size: 20rpx;
+  color: rgba(230, 237, 243, 0.4);
+  margin-bottom: 6rpx;
+}
+
+.stat-box-value {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.stat-box-value.gun {
+  color: #58a6ff;
+}
+
+.stat-box-value.crit {
+  color: #f85149;
+}
+
+.special-gems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 16rpx;
+}
+
+.gem-tag {
+  font-size: 22rpx;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1rpx solid rgba(255, 215, 0, 0.35);
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.member-actions {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  padding: 18rpx 0;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+  color: rgba(230, 237, 243, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.action-btn.delete {
+  color: #f85149;
+  background: rgba(248, 81, 73, 0.1);
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 100rpx 0;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-title {
+  font-size: 30rpx;
+  color: rgba(230, 237, 243, 0.7);
+  margin-bottom: 10rpx;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+.loading-state {
+  padding: 80rpx 0;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid rgba(255,255,255,0.1);
+  border-top-color: #f0883e;
+  border-radius: 50%;
+  margin: 0 auto 20rpx;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: rgba(230, 237, 243, 0.4);
+}
+
+/* 底部操作区 */
+.bottom-actions {
+  margin: 40rpx 24rpx 40rpx;
+}
+
+.action-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn2 {
+  flex: 1;
+  text-align: center;
+  padding: 22rpx 0;
+  border-radius: 14rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  border: none;
+  line-height: 1.4;
+}
+
+.action-btn2.transfer {
+  background: rgba(255, 215, 0, 0.12);
+  color: #ffd700;
+  border: 1rpx solid rgba(255, 215, 0, 0.3);
+}
+
+.action-btn2.sync {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+}
+
+.action-btn2.invite {
+  background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+  color: #fff;
+}
+
+.action-btn2.invite::after {
+  border: none;
+}
+
+/* 转移团长弹窗 */
+.transfer-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.transfer-panel {
+  width: 100%;
+  max-height: 70vh;
+  background: #161b22;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx;
+}
+
+.transfer-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8rpx;
+}
+
+.transfer-desc {
+  font-size: 24rpx;
+  color: rgba(230, 237, 243, 0.5);
+  margin-bottom: 24rpx;
+}
+
+.transfer-list {
+  max-height: 50vh;
+}
+
+.transfer-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  margin-bottom: 8rpx;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.transfer-item.selected {
+  background: rgba(240, 136, 62, 0.15);
+  border: 1rpx solid rgba(240, 136, 62, 0.4);
+}
+
+.transfer-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #fff;
+  margin-right: 20rpx;
+}
+
+.transfer-info {
+  flex: 1;
+}
+
+.transfer-name {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.transfer-role {
+  font-size: 20rpx;
+  color: #58a6ff;
+}
+
+.transfer-check {
+  font-size: 36rpx;
+  color: #f0883e;
+}
+
+.transfer-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.transfer-btn {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  border-radius: 14rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.transfer-btn.cancel {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(230, 237, 243, 0.6);
+}
+
+.transfer-btn.confirm {
+  background: linear-gradient(135deg, #f0883e 0%, #db6d28 100%);
+  color: #fff;
+}

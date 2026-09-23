@@ -1,0 +1,107 @@
+<!--pages/legion/legion.wxml-->
+<view class="page-legion">
+  <!-- 顶部军团卡片 -->
+  <view class="legion-header">
+    <view class="header-bg"></view>
+    <view class="legion-card">
+      <view class="card-top">
+        <view class="legion-avatar">🏰</view>
+        <view class="legion-info">
+          <view class="legion-subtitle">LEGION</view>
+          <view class="legion-name">{{legion.name}}</view>
+          <view class="legion-badges">
+            <text class="badge">👥 {{members.length}}人</text>
+            <text class="badge crown" wx:if="{{isOwner}}">👑 团长</text>
+            <text class="badge shield" wx:if="{{isAdmin && !isOwner}}">🛡️ 管理员</text>
+          </view>
+        </view>
+        <view class="exit-icon" bindtap="exitLegion">✕</view>
+      </view>
+
+      <view class="card-code">
+        <view class="code-main">
+          <text class="code-label">当前军团口令</text>
+          <text class="code-value">{{legion.code}}</text>
+        </view>
+        <view class="code-actions">
+          <text class="code-btn gold" catchtap="copyCode">📋 复制</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 军团日常（占位） -->
+  <view class="daily-section">
+    <view class="section-title">军团日常</view>
+    <view class="daily-placeholder">
+      <text class="daily-icon">🎯</text>
+      <text class="daily-text">军团日常玩法即将上线</text>
+    </view>
+  </view>
+
+  <!-- 分类管理菜单 -->
+  <view class="menu-section">
+    <view class="section-title">分类管理</view>
+
+    <view class="menu-item" bindtap="goMembers">
+      <view class="menu-icon">👥</view>
+      <view class="menu-body">
+        <text class="menu-title">成员管理</text>
+        <text class="menu-desc">审核角色、同步数据、管理管理员</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item disabled">
+      <view class="menu-icon">📊</view>
+      <view class="menu-body">
+        <text class="menu-title">军团排行</text>
+        <text class="menu-desc">按战力、关卡、爆伤排序</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item disabled">
+      <view class="menu-icon">🛡️</view>
+      <view class="menu-body">
+        <text class="menu-title">小队管理</text>
+        <text class="menu-desc">创建小队和调整成员分组</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item disabled">
+      <view class="menu-icon">⚔️</view>
+      <view class="menu-body">
+        <text class="menu-title">攻城推演</text>
+        <text class="menu-desc">快速分配城池并实时计算积分</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 转移团长弹窗 -->
+  <view class="transfer-modal" wx:if="{{showTransfer}}" catchtap="closeTransfer">
+    <view class="transfer-panel" catchtap="noop">
+      <view class="transfer-title">选择新团长</view>
+      <view class="transfer-desc">团长转移后，您将变为普通成员</view>
+      <scroll-view class="transfer-list" scroll-y>
+        <view class="transfer-item {{transferTargetId === item.id ? 'selected' : ''}}"
+              wx:for="{{members}}" wx:key="id"
+              wx:if="{{item.userId !== currentUserId}}"
+              data-id="{{item.id}}" bindtap="selectTransferTarget">
+          <view class="transfer-avatar">{{item.roleName.charAt(0)}}</view>
+          <view class="transfer-info">
+            <text class="transfer-name">{{item.roleName}}</text>
+            <text class="transfer-role" wx:if="{{item.role === 'admin'}}">管理员</text>
+          </view>
+          <view class="transfer-check" wx:if="{{transferTargetId === item.id}}">✓</view>
+        </view>
+      </scroll-view>
+      <view class="transfer-actions">
+        <view class="transfer-btn cancel" bindtap="closeTransfer">取消</view>
+        <view class="transfer-btn confirm" bindtap="confirmTransfer">确认转移</view>
+      </view>
+    </view>
+  </view>
+</view>
