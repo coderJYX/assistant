@@ -46,7 +46,8 @@
       </view>
 
       <view class="member-actions">
-        <view class="action-btn refresh" wx:if="{{item.userId === currentUserId || isOwner || isAdmin}}"
+        <!-- 同步按钮权限：本人/团长全部可见；管理员仅对普通成员可见 -->
+        <view class="action-btn refresh" wx:if="{{item.userId === currentUserId || isOwner || (isAdmin && item.role === 'member')}}"
               catchtap="syncMember" data-id="{{item.id}}">
           <text>🔄</text>
           <text>同步</text>

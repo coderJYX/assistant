@@ -61,7 +61,8 @@
           <text>📋</text>
           <text>复制</text>
         </view>
-        <view class="url-btn edit" wx:if="{{member.userId === currentUserId || isOwner || isAdmin}}" bindtap="startEdit">
+        <!-- 修改按钮权限：本人/团长可见；管理员仅对普通成员可见 -->
+        <view class="url-btn edit" wx:if="{{member.userId === currentUserId || isOwner || (isAdmin && member.role === 'member')}}" bindtap="startEdit">
           <text>✏️</text>
           <text>修改</text>
         </view>
@@ -85,7 +86,8 @@
 
   <!-- 操作按钮 -->
   <view class="action-section">
-    <view class="action-btn refresh" wx:if="{{member.userId === currentUserId || isOwner || isAdmin}}" bindtap="refreshData">
+    <!-- 同步按钮权限：本人/团长可见；管理员仅对普通成员可见 -->
+    <view class="action-btn refresh" wx:if="{{member.userId === currentUserId || isOwner || (isAdmin && member.role === 'member')}}" bindtap="refreshData">
       <text class="action-icon">🔄</text>
       <text class="action-text">同步数据</text>
     </view>

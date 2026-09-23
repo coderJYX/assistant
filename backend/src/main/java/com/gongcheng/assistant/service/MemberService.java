@@ -14,6 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 军团成员服务
@@ -23,6 +27,18 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
+
+    /**
+     * 一键同步专用线程池
+     * 并发拉取多个成员的梦游社数据，避免串行等待
+     * 核心线程数8，兼顾效率和外部接口压力
+     */
+    private static final ExecutorService SYNC_EXECUTOR = Executors.newFixedThreadPool(8,
+            r -> {
+                Thread t = new Thread(r, "member-sync-worker");
+                t.setDaemon(true);
+                return t;
+            });
 
     private final MemberMapper memberMapper;
     private final LegionMapper legionMapper;
@@ -52,11 +68,16 @@ public class MemberService {
         // 输入清洗：去除控制字符和首尾空格
         String apiUrl = SecurityValidator.sanitize(request.getApiUrl());
 
-        // 校验同一军团下游魂社链接不重复（幂等性）
+        // 先解析链接得到游戏参数（gameUserId + gameRoleId）
+        // 用于判重：H5链接和API直链可能指向同一角色，不能仅比对链接字符串
+        ApiQueryService.GameParams params = apiQueryService.parseGameParams(apiUrl);
+
+        // 校验同一军团下游戏角色不重复（基于 gameUserId + gameRoleId，幂等性）
         Long count = memberMapper.selectCount(
                 new LambdaQueryWrapper<Member>()
                         .eq(Member::getLegionId, legion.getId())
-                        .eq(Member::getApiUrl, apiUrl));
+                        .eq(Member::getGameUserId, params.userId())
+                        .eq(Member::getGameRoleId, params.roleId()));
         if (count != null && count > 0) {
             throw new ServiceException(GlobalErrorCodeConstants.MEMBER_API_URL_EXISTS);
         }
@@ -212,11 +233,16 @@ public class MemberService {
         // 输入清洗
         String trimmedUrl = SecurityValidator.sanitize(apiUrl);
 
-        // 校验同一军团下链接不重复（排除自己）
+        // 先解析新链接得到游戏参数（gameUserId + gameRoleId）
+        // 用于判重：H5链接和API直链可能指向同一角色，不能仅比对链接字符串
+        ApiQueryService.GameParams params = apiQueryService.parseGameParams(trimmedUrl);
+
+        // 校验同一军团下游戏角色不重复（基于 gameUserId + gameRoleId，排除自己）
         Long count = memberMapper.selectCount(
                 new LambdaQueryWrapper<Member>()
                         .eq(Member::getLegionId, member.getLegionId())
-                        .eq(Member::getApiUrl, trimmedUrl)
+                        .eq(Member::getGameUserId, params.userId())
+                        .eq(Member::getGameRoleId, params.roleId())
                         .ne(Member::getId, id));
         if (count != null && count > 0) {
             throw new ServiceException(GlobalErrorCodeConstants.MEMBER_API_URL_EXISTS);
@@ -301,7 +327,7 @@ public class MemberService {
     /**
      * 一键同步军团所有成员数据
      * 权限：仅团长或管理员可操作
-     * 逐个调用梦游社接口刷新，单个失败不影响其他成员
+     * 使用线程池并发调用梦游社接口刷新，单个失败不影响其他成员
      *
      * @param legionId       军团ID
      * @param operatorUserId 操作人用户ID
@@ -331,17 +357,28 @@ public class MemberService {
         List<Member> members = memberMapper.selectList(
                 new LambdaQueryWrapper<Member>().eq(Member::getLegionId, legionId));
 
-        // 逐个同步，单个失败不影响整体
-        int success = 0;
-        for (Member m : members) {
-            try {
-                apiQueryService.fillMemberFromApi(m, m.getApiUrl());
-                memberMapper.updateById(m);
-                success++;
-            } catch (Exception e) {
-                log.warn("同步成员失败: id={}, roleName={}, err={}", m.getId(), m.getRoleName(), e.getMessage());
-            }
+        if (members.isEmpty()) {
+            return 0;
         }
+
+        // 并发同步：用线程池同时拉取多个成员数据，单个失败不影响整体
+        AtomicInteger successCount = new AtomicInteger(0);
+        CompletableFuture<?>[] futures = members.stream()
+                .map(m -> CompletableFuture.runAsync(() -> {
+                    try {
+                        apiQueryService.fillMemberFromApi(m, m.getApiUrl());
+                        memberMapper.updateById(m);
+                        successCount.incrementAndGet();
+                    } catch (Exception e) {
+                        log.warn("同步成员失败: id={}, roleName={}, err={}", m.getId(), m.getRoleName(), e.getMessage());
+                    }
+                }, SYNC_EXECUTOR))
+                .toArray(CompletableFuture[]::new);
+
+        // 等待所有并发任务完成
+        CompletableFuture.allOf(futures).join();
+
+        int success = successCount.get();
         log.info("一键同步完成: legionId={}, 成功{}/{}, operator={}", legionId, success, members.size(), operatorUserId);
         return success;
     }
